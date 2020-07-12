@@ -1,0 +1,50 @@
+table{
+    font-size: 13px;
+}
+.quantity{
+    line-height: 1.75rem;
+    white-space: nowrap;
+    width: 2.0rem;
+    border: 1px solid #d8d8d8 !important;
+    font-size: 12px;
+}
+.quantity-text{
+    font-size: 12px;
+}
+.btn-default{
+    border: 1px solid #d8d8d8;
+}
+h1, h2, h3, h4, h5, h6, p {
+    margin-bottom: 4px !important;
+}
+.mulp {
+    color: #c8c8c8;
+    font-weight: bold;
+    font-size: 12px;
+}
+.summary, .summary .card-body{
+    padding: 0px !important;
+}
+.card-body .table td{
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+}
+.pay {
+    font-size: 11px;
+    color: #c8c8c8;
+}
+.pay .fa{
+    font-size: 18px;
+}
+.pay .fa-cc-mastercard{
+    color: orangered;
+}
+.pay .fa-cc-visa{
+    color: rgba(38, 74, 116, 0.699); 
+}
+.prod-name{
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    font-weight: 400;
+}

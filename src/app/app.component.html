@@ -1,0 +1,235 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar navbar-expand-sm bg-info shadow-sm navbar-dark">
+  <!-- brand -->
+  <a class="navbar-brand" href="#">MarvelCart</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Links -->
+  <div class="container">
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+      <!-- searchbar -->
+      <div>
+        <input type="text" class="form-control form-control-sm" size="75" placeholder="Search for products, brand and more">
+      </div>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">More</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/dashboard">Sell Products</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart">Cart
+            <span *ngIf="cartCount && cartCount != 0" class="badge badge-danger rounded-circle">{{cartCount}}</span>
+          </a>
+        </li>
+        <li *ngIf="!isLoggedIn; else elseBlock" class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Login</a>
+        </li>
+        <ng-template #elseBlock>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click) = "onLogout()">Logout</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Login</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <ul class="nav nav-tabs special">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#register">Register</a>
+          </li>
+        </ul>
+        <br>
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+          <!-- VISUAL FEEDBACK -->
+          <div *ngIf="responseLogin">
+            <div *ngIf="responseLogin.status === 'success'" class="alert alert-success alert-dismissible fade show">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{responseLogin.message}}
+            </div>
+            <div *ngIf="responseLogin.status === 'error'" class="alert alert-danger alert-dismissible fade show">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{responseLogin.message}}
+            </div>
+          </div>
+
+          <!-- login Tab -->
+          <div class="tab-pane active container" id="login">
+            <form #loginInput="ngForm" (ngSubmit)="onLogin(loginInput.value)">
+              <div class="input-group input-group mt-3 mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text fa fa-user"></span>
+                </div>
+                <input style="border-radius: 0 !important;" type="email" name="email" class="form-control" placeholder="Enter email" ngModel>
+              </div>
+              <div class="input-group input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text fa fa-lock"></span>
+                </div>
+                <input type="password" style="border-radius: 0 !important;" name="password" class="form-control" placeholder="Enter password" ngModel>
+              </div>
+
+              <button type="submit" class=" logBtn btn btn-info mt-4">Login</button>
+            </form>
+            <p class="text-center mt-3"><b>OR</b></p>
+            <!-- social media buttons -->
+            <div class="row mb-5">
+              <div class="col-6">
+                <button (click) = "facebookLogin()" type="submit" class=" logBtn btn btn-fb text-white">
+                  <i class="fa fa-facebook mr-3"></i>Login with facebook
+                </button>
+              </div>
+              <div class="col-6">
+                <button (click) = "googleLogin()" type="submit" class=" logBtn btn btn-google text-white">
+                  <i class="fa fa-google mr-3"></i>Login with google
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- registration tab -->
+          <div class="tab-pane container" id="register">
+            <div *ngIf="response">
+              <div *ngIf="response.status === 'success'" class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{response.message}}
+              </div>
+              <div *ngIf="response.status === 'error'" class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{response.message}}
+              </div>
+            </div>
+
+            <!-- Registration modal -->
+            
+            <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+              <div class="row">
+                  <div class="col-sm-2">
+                    <label for="email"><b>Email <span style="color: red">*</span></b></label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="email" formControlName="email" [class.is-invalid]="email.invalid &&
+                        email.touched" class="form-control form-control-sm">
+                      <div *ngIf="email.invalid && email.touched">
+                        <small *ngIf="email.errors?.required" style="font-size: 13px" class="text-danger">Email is required</small>
+                        <small *ngIf="email.errors?.pattern" style="font-size: 13px" class="text-danger">Please enter a valid email</small>
+                      </div>
+                  </div>
+              </div><br>
+
+              <div class="row">
+                  <div class="col-sm-2">
+                    <label for="usr"><b>User Name <span style="color: red">*</span></b></label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" [class.is-invalid]="userName.invalid &&
+                      userName.touched" formControlName = "userName" class="form-control form-control-sm">
+                    <small style="font-size: 13px" [class.d-none]="userName.valid ||
+                        userName.untouched" class="text-danger">Username is required</small>
+                  </div>
+              </div><br>
+
+              <div class="row">
+                  <div class="col-sm-2">
+                    <label for="pwd1"><b>Password <span style="color: red">*</span></b></label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="password" formControlName="password" class="form-control form-control-sm" [class.is-invalid]="password.invalid &&
+                        password.touched">
+                    <small style="font-size: 13px" [class.d-none]="password.valid ||
+                        password.untouched" class="text-danger">Password is required</small>
+                  </div>
+              </div><br>
+
+              <div class="row">
+                  <div class="col-sm-2">
+                    <label for="pwd2"><b>Confirm Password <span style="color: red">*</span></b></label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="password" [class.is-invalid]="registrationForm.errors?.misMatch" formControlName="confirmPassword" class="form-control form-control-sm">
+                    <small *ngIf="registrationForm.errors?.misMatch" style="font-size: 13px" class="text-danger">Passwords do not match</small>
+                  </div>
+              </div><br>
+
+              <div class="row">
+                  <div class="col-sm-2">
+                    <label for="phone"><b>Phone No <span style="color: red">*</span></b></label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" formControlName="phoneNumber" [class.is-invalid]="phoneNumber.invalid &&
+                      phoneNumber.touched" class="form-control form-control-sm">
+                      <div *ngIf="phoneNumber.invalid && phoneNumber.touched">
+                        <small *ngIf="phoneNumber.errors?.required" style="font-size: 13px" class="text-danger">Phone Number is required</small>
+                        <small *ngIf="phoneNumber.errors?.pattern" style="font-size: 13px" class="text-danger">Phone Number must be 11 digits</small>
+                      </div>
+                  </div>
+              </div><br>
+
+              <div class="row">
+                  <div class="col-sm-2">
+                    <label for="gender"><b>Gender</b></label>
+                  </div>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" formControlName="gender" [class.is-invalid]="gender.invalid &&
+                        gender.touched">
+                      <option value="default"> --select--</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                    <div *ngIf="gender.invalid && gender.touched">
+                      <small *ngIf="gender.errors?.required" class="text-danger" style="font-size: 13px">Please select a gender</small>
+                      <small *ngIf="gender.errors?.forbiddenName" class="text-danger" style="font-size: 13px">Please select a gender</small>
+                    </div>
+                  </div>
+              </div><br><br>
+
+
+                  <button [disabled]="registrationForm.invalid" type="submit" class="btn btn-primary mr-2">Register</button>
+                  <button type="reset" class="btn btn-light">Cancel</button>
+              <br><br>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3" *ngIf="displayName">
+  <span><b style="font-size: 22px;">Welcome</b> {{ displayName }} </span>
+</div>
+<router-outlet></router-outlet>
+<!-- <app-products-display></app-products-display> -->
+<!-- <app-dashboard></app-dashboard> -->
+<!-- <app-product-details></app-product-details> -->

@@ -1,0 +1,62 @@
+.navbar-brand {
+  margin-right: 0;
+  font-size: 1.50rem;
+  font-weight: 600;
+}
+.nav-item a{
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+.dropdown-menu a{
+  color: black !important;
+}
+.modal-header{
+  background-color: rgba(0, 162, 255, 0.678) !important;
+}
+.special a{
+  color: black !important;
+}
+.special a.active{
+  color: rgba(0, 162, 255, 0.678) !important;
+}
+.tab-content{
+  font-size: 12px !important;
+  color: #777777 !important;
+}
+.tab-content .btn{
+  font-size: 16px;
+  font-weight: 600;
+  /* color: rgba(0, 162, 255, 0.678); */
+  /* border: 1px solid rgba(0, 162, 255, 0.678) !important;
+  background-color: transparent !important; */
+  transition: .3s;
+}
+.tab-content .btn-primary:hover{
+  background-color: black !important;
+  color: #ffffff !important;
+  border: 1px solid black !important;
+}
+.logBtn{
+  width: 100% !important;
+  /* margin-top: 20px;
+  margin-bottom: 30px; */
+}
+.btn-fb {
+  background-color: #3b5998;
+}
+.btn-google {
+  background-color: #db4a39;
+}
+
+.fa-lock, .fa-user {
+  font-size: 20px;
+  color: #888888;
+}
+
+
+@media screen and (min-width: 1025px){
+  .modal-content{
+    width: 650px!important;
+  }
+}

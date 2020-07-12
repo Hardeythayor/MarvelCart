@@ -1,0 +1,101 @@
+<div class="pt-5 pl-5 pr-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-9">
+        <table class="table table-borderless table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>Item Details</th>
+              <th>Quantity</th>
+              <th>Item Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white" *ngIf="carts">
+            <tr *ngFor="let cart of carts">
+              <td width="60%">
+                <!-- <div class="row"> -->
+                  <!-- <div class="col-xs-3"> -->
+                    <img class="float-left mr-3"  src = 'http://localhost/welcome/api/marvel/uploads/{{cart.product_image}}' width="50px" height="50px">
+                  <!-- </div> -->
+                  <!-- <div class="col-xs-9"> -->
+                    <div>
+                      <h6 class="text-justify" style="font-size: 14px; color: #535151; line-height: 1.5">{{cart.product_name}}</h6>
+                      <p style="font-size: 12px; color:#696969">Sold by Hayzed Stores</p>
+                    </div>
+                  <!-- </div> -->
+                <!-- </div> -->
+              </td>
+              
+              <!-- <td>
+                <div class="btn-group btn-group-sm">
+                  <button type="button" (click) = "decrement(quantityValue.id)" class="btn btn-default">&minus;</button>
+                  <div #quantityValue class="quantity text-center" [id] = 'cart.id'>1</div>
+                  <button type="button" (click) = "increment(quantityValue.id, cartPrice.id, quantityMult.id)" class="btn btn-default">+</button>
+                </div>
+              </td>
+              <td>
+                <h5 #cartPrice [id]="cart.id" style="margin-bottom: 2px !important; font-size: 19px">&#8358; {{ cart.price }}</h5>
+                <p class="mulp">&#8358; {{cart.price }} x <label #quantityMult [id]="18"> 1 </label> item</p>
+              </td> -->
+
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <button type="button" (click) = "decrement(cart, carts)" class="btn btn-default">&minus;</button>
+                  <div class="quantity text-center">{{ cart.minQty }}</div>
+                  <button type="button" (click) = "increment(cart, carts)" class="btn btn-default">+</button>
+                </div>
+              </td>
+              <td>
+                <h5 style="margin-bottom: 2px !important; font-size: 19px">&#8358; {{ cart.totalPrice }}</h5>
+                <p class="mulp">&#8358; {{cart.price }} x {{cart.minQty}} item</p>
+              </td>
+              <td width="10%">
+                <button class="btn btn-sm btn-info mr-2"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-sm btn-secondary"><i class="far fa-bookmark"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-3">
+        <div class="card summary">
+          <div class="card-body">
+            <table class="table w-100">
+              <tbody>
+                <tr class="font-weight-bold">
+                  <td width="60%">Order Summary</td>
+                  <td class="text-right">1 item</td>
+                </tr>
+                <tr>
+                  <td>Subtotal:</td>
+                  <td class="text-right">&#8358; {{subTotal}}</td>
+                </tr>
+                <tr>
+                  <td>Delivery Charges</td>
+                  <td class="text-right" style="font-size: 9px; line-height: 1.5; color: #a8a8a8">
+                    Add your Delivery address at checkout to see delivery charges.
+                  </td>
+                </tr>
+                <tr class="font-weight-bold">
+                  <td>Total</td>
+                  <td class="text-right">&#8358; {{subTotal}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding-top: 2px !important">
+                    <p class="text-right mb-1" style="font-size: 10px; color: brown;">Excluding delivery charges</p>
+                    <button class="btn btn-sm btn-success w-100 mt-2" style="font-size: 14px; font-weight: 500">Continue to Checkout</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pay">We accept <i class="fa fa-cc-mastercard ml-3"></i> <i class="fa fa-cc-visa ml-3"></i> <i class="fa fa-v"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

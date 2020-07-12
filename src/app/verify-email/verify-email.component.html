@@ -1,0 +1,21 @@
+<div class="bg-light">
+  <div class="container p-4">
+    <div class="card pt-3 pr-5 pl-5" style="border-radius: 10px;">
+      <div class="card-body text-justify">
+        <h4 class="text-info text-center">Thank you for Registering</h4><hr>
+        <div *ngIf="authService.userData as user">
+          <p>We have sent a confirmation link to your email with <b style="font-size: 20px" class="text-success">{{ user.email}}.</b>
+            Please check your email and click on the link to verfiy your email address.
+          </p>
+          <p>Upon verification, you can now login with your registered credentials</p>
+        </div>
+        <div class="text-center mt-5">
+          <button type="button" class="btn btn-primary" (click)="authService.SendVerificationMail()">
+            <i class="fas fa-redo-alt"></i>
+            &nbsp;Resend Verification Email
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

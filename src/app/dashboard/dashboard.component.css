@@ -1,0 +1,23 @@
+.tab-content{
+  font-size: 14px !important;
+  color: #777777 !important;
+}
+input{
+  font-size: 14px;
+}
+.tab-content .btn{
+  font-size: 12px !important;
+  border-radius: 0 !important;
+}
+.special{
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 760px){
+  .nav-pills a{
+    font-size: 12px !important;
+  }
+}
+
+

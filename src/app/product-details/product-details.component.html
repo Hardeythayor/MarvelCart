@@ -1,0 +1,107 @@
+<div class="product-details-bg pt-5 bg-light" *ngIf="product">
+  <div class="container bg-white pt-3">
+    <div class="row">
+      <div class="col-sm-6 text-center image-div mb-3">
+        <img class="img-fluid" src = 'http://localhost/welcome/api/marvel/uploads/{{product.product_image}}'>
+      </div>
+      <div class="col-sm-6">
+        <h4 class="prod-name">{{product.product_name}}</h4>
+        <div class="row">
+          <div class="col-sm-9 col-6">
+            <small>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              19 Reviews
+            </small><br>
+            <small>Brand: <strong>Infinix</strong></small>
+          </div>
+        </div>
+
+        <hr>
+
+        <h5 style="color:#404553; font-size: 14px">Key Features</h5>
+        <ul style="list-style-type:square; padding-inline-start: 20px !important; color: #9b9b9b; font-size: 12px">
+          <li>6.3 inches</li>
+          <li>Dual Sim</li>
+          <li>4G LTE</li>
+          <!-- <li>64GB ROM</li>
+          <li>8GB RAM</li> -->
+        </ul>
+
+        <hr>
+
+        <p><strong style="font-size: 22px">&#8358; {{product.price}}</strong>&nbsp;&nbsp;
+          <small><del>&#8358; 300,000</del></small>&nbsp;&nbsp;
+          <small style="color:rgba(18, 224, 139, 0.76)"><b>You save &#8358; 7,500</b></small>
+        </p>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-4 col-4">
+            <span class="quantity-text">Quantity:</span>&nbsp;&nbsp;&nbsp;
+            <div class="btn-group btn-group-sm">
+              <button type="button" (click) = "decrement()" class="btn btn-light">&minus;</button>
+              <div class="quantity text-center">{{ quantityValue }}</div>
+              <button type="button" (click) = "increment()" class="btn btn-light">+</button>
+            </div>
+          </div>
+          <div class="col-sm-6 col-6 bulk-purchase">
+            <p style="color: #9b9b9b;">Call us for bulk purchases:</p>
+            <p>Click here to show phone number</p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-6 col-7">
+            <button type="button" class="btn btn-success cart-btn btn-block" (click)="onAddToCart(product.id)">Add To Cart</button>
+          </div>
+          <div class="col-sm-4 col-5">
+            <button type="button" class="btn btn-light save-later"><i class="fa fa-heart"></i></button>
+            <small style="font-size: 10px; font-weight: bold">Save for later</small>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row services">
+          <div class="col-sm-6">
+            <i class="fas fa-truck-pickup"></i> Pickup & Pay on Collection Available
+          </div>
+          <div class="col-sm-6">
+            <i class="fas fa-warehouse"></i> Marvel Warehouse
+          </div>
+          <div class="col-sm-6">
+            <i class="fas fa-truck-moving"></i> Express Delivery Available
+          </div>
+          <div class="col-sm-6"></div>
+        </div>
+
+        <hr>
+
+        <div class="row pb-5">
+          <div class="col-sm-4">
+            <small style="color: #404553; font-size: 11px;">Same Day Delivery Available at:</small>
+          </div>
+          <div class="col-sm-6">
+            <span class="badge badge-pill badge-warning mr-2 px-3 py-2">Lagos</span>
+            <span class="badge badge-pill badge-warning mr-2 px-3 py-2">Abuja</span>
+            <span class="badge badge-pill badge-warning px-3 py-2">PH</span>
+          </div>
+          <div class="col-12 mt-3 social">
+            <p>Share with friends</p>
+            <button  class="btn btn-fb rounded-circle mr-3"><i class="fa fa-facebook"></i></button>
+            <button  class="btn btn-twitter rounded-circle mr-1"><i class="fab fa-twitter"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

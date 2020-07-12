@@ -1,0 +1,173 @@
+<div class="container">
+  <!-- Nav pills -->
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" href="#addProducts" data-toggle="pill">Add Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#allProducts" data-toggle="pill">All Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#updateProducts" data-toggle="pill">Update Products</a>
+    </li>
+  </ul>
+  <hr>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane container active" id="addProducts">
+      <!-- Add Product -->
+      <div class="card products-card">
+        <div class="card-header special bg-secondary text-white">
+          Products Add
+        </div>
+        <div class="card-body">
+          <!-- Alert message panel -->
+          <div *ngIf="response">
+              <div *ngIf="response.status === 'success'" class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{response.message}}
+              </div>
+              <div *ngIf="response.status === 'error'" class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{response.message}}
+              </div>
+          </div>
+
+          <!-- upload form -->
+          <form [formGroup]="productsForm" (ngSubmit)="onSubmit()">
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="billing address">Billing Address:</label>
+              </div>
+              <div class="col-sm-6">
+                <input [class.is-invalid]="billingAddress.invalid && billingAddress.touched" type="text"
+                class="form-control form-control-sm" formControlName="billingAddress" placeholder="Enter Billing Address">
+                  <small style="font-size: 12px" [class.d-none]="billingAddress.valid ||
+                    billingAddress.untouched" class="text-danger">Billing Address is required</small>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="product name">Product Name:</label>
+              </div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control form-control-sm" formControlName="productName"
+                [class.is-invalid]="productName.invalid && productName.touched" placeholder="Enter Product Name">
+                  <small style="font-size: 12px" [class.d-none]="productName.valid ||
+                    productName.untouched" class="text-danger">Product Name is required</small>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="product price">Per Unit Price:</label>
+              </div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control form-control-sm" formControlName="price"
+                  [class.is-invalid]="price.invalid && price.touched" placeholder="Price">
+                  <div *ngIf="price.invalid && price.touched">
+                    <small *ngIf="price.errors?.required" style="font-size: 12px" class="text-danger">Price is required</small>
+                    <small *ngIf="price.errors?.pattern" style="font-size: 12px" class="text-danger">Price must be a number</small>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="category">Product Category:</label>
+              </div>
+              <div class="col-sm-6">
+                <select class="form-control form-control-sm" formControlName="productCategory"
+                  [class.is-invalid]="productCategory.invalid && productCategory.touched">
+                  <option value="default">--select a category--</option>
+                  <option>Electronics</option>
+                  <option>Games</option>
+                  <option>Fashion</option>
+                  <option>Toys</option>
+                  <option>Health and Fitness</option>
+                </select>
+                <div *ngIf="productCategory.invalid && productCategory.touched">
+                  <small *ngIf="productCategory.errors?.required" style="font-size: 12px" class="text-danger">Product Category is required</small>
+                  <small *ngIf="productCategory.errors?.forbiddenName" style="font-size: 12px" class="text-danger">Please select a category</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="quantity">Available Quantity:</label>
+              </div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control form-control-sm" formControlName="quantity"
+                  [class.is-invalid]="quantity.invalid && quantity.touched" placeholder="Quantity">
+                <div *ngIf="quantity.invalid && quantity.touched">
+                  <small *ngIf="quantity.errors?.required" style="font-size: 12px" class="text-danger">Quantity is required</small>
+                  <small *ngIf="quantity.errors?.pattern" style="font-size: 12px" class="text-danger">Quantity must be a number</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="product image">Product Image:</label>
+              </div>
+              <div class="col-sm-6">
+                <input type="file" class=" form-control-sm" name="productImage"
+                [class.is-invalid]="productImage.invalid && productImage.touched" (change)="onFileSelected($event)">
+                <small style="font-size: 12px" [class.d-none]="productImage.valid ||
+                  productImage.untouched" class="text-danger">Please select an image</small>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="description">Product Description:</label>
+              </div>
+              <div class="col-sm-6">
+                <textarea type="text" class="form-control form-control-sm" formControlName="description" rows="3"
+                  [class.is-invalid]="description.invalid && description.touched" placeholder="Enter Product Description"></textarea>
+                    <small style="font-size: 12px" [class.d-none]="description.valid ||
+                      description.untouched" class="text-danger">Please give a detailed description of the Product</small>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-2">
+                <label for="terms">Terms & Conditions:</label>
+              </div>
+              <div class="col-sm-6">
+                <textarea type="text" class="form-control form-control-sm" formControlName="termsAndConditions" rows="3"
+                  [class.is-invalid]="termsAndConditions.invalid && termsAndConditions.touched" placeholder="Enter Terms & Conditions"></textarea>
+                    <small style="font-size: 12px" [class.d-none]="termsAndConditions.valid ||
+                      termsAndConditions.untouched" class="text-danger">Please provide product's Terms and conditions </small>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-6">
+                <button type="submit" [disabled]="productsForm.invalid" class="btn btn-success btn-lg mr-2">ADD PRODUCT</button>
+                <button type="reset" class="btn btn-light">CANCEL</button>
+              </div>
+            </div><br>
+
+          </form>
+        </div>
+      </div><br>
+    </div>
+
+
+    <div class="tab-pane container fade" id="allProducts">
+      show
+    </div>
+
+
+    <div class="tab-pane container fade" id="updateProducts">
+      update
+    </div>
+  </div>
+
+</div>
